@@ -10,4 +10,24 @@ export const routes: Routes = [
     redirectTo: 'home',
     pathMatch: 'full',
   },
+  {
+    path: 'exercises',
+    loadComponent: () => import('./exercises/exercises.page').then( m => m.ExercisesPage)
+  },
+  {
+    path: 'plans',
+    loadComponent: () => import('./plans/plans.page').then( m => m.PlansPage)
+  },
+  {
+    path: 'log-workout',
+    loadComponent: () => import('./log-workout/log-workout.page').then( m => m.LogWorkoutPage)
+  },
+  {
+    path: 'history',
+    loadComponent: () => import('./history/history.page').then( m => m.HistoryPage)
+  },
+  {
+    path: 'settings',
+    loadComponent: () => import('./settings/settings.page').then( m => m.SettingsPage)
+  },
 ];

@@ -1,15 +1,19 @@
 <ion-header [translucent]="true">
   <ion-toolbar>
     <ion-title>
-      Workout Tracker
+      Home
     </ion-title>
   </ion-toolbar>
 </ion-header>
 
 <ion-content [fullscreen]="true">
-  <ion-header collapse="condense">
-    <ion-toolbar>
-      <ion-title size="large">Workout Tracker</ion-title>
-    </ion-toolbar>
-  </ion-header>
+  <h1>Workout Tracker</h1>
+  <h2>Welcome to the Dashboard</h2>
+  <p>Select a section below</p>
+
+   <ion-button expand="block" routerLink="/exercises">Exercises</ion-button>
+  <ion-button expand="block" routerLink="/plans">Plans</ion-button>
+  <ion-button expand="block" routerLink="/log-workout">Log Workout</ion-button>
+  <ion-button expand="block" routerLink="/history">History</ion-button>
+  <ion-button expand="block" routerLink="/settings">Settings</ion-button>
 </ion-content>
