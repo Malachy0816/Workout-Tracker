@@ -8,6 +8,21 @@
 </ion-header>
 
 <ion-content [fullscreen]="true">
-  <h1>Exercises</h1>
-  <p>Here you can view and manage your exercises.</p>
+  <ion-searchbar
+    [(ngModel)]="searchTerm"
+    (ionInput)="onSearchChange()"
+    placeholder="Search exercises">
+  </ion-searchbar>
+
+  <ion-card *ngFor="let exercise of exercises">
+    <ion-card-header>
+      <ion-card-title>{{ exercise.name }}</ion-card-title>
+    </ion-card-header>
+
+    <ion-card-content>
+      <p><strong>Body Part:</strong> {{ exercise.bodyPart }}</p>
+      <p><strong>Equipment:</strong> {{ exercise.equipment }}</p>
+      <p><strong>Target:</strong> {{ exercise.target }}</p>
+    </ion-card-content>
+  </ion-card>
 </ion-content>
