@@ -1,19 +1,32 @@
 <ion-header [translucent]="true">
   <ion-toolbar>
     <ion-title>
-      Home
+      Workout Tracker
     </ion-title>
   </ion-toolbar>
 </ion-header>
 
-<ion-content [fullscreen]="true">
-  <h1>Workout Tracker</h1>
-  <h2>Welcome to the Dashboard</h2>
-  <p>Select a section below</p>
+<ion-content [fullscreen]="true" class="home-content">
 
-   <ion-button expand="block" routerLink="/exercises">Exercises</ion-button>
-  <ion-button expand="block" routerLink="/plans">Plans</ion-button>
-  <ion-button expand="block" routerLink="/log-workout">Log Workout</ion-button>
-  <ion-button expand="block" routerLink="/history">History</ion-button>
-  <ion-button expand="block" routerLink="/settings">Settings</ion-button>
+  <div class="wordmark">
+    <h1>
+      Welcome to Workout Tracker!</h1>
+      <p>Track your workouts and achieve your fitness goals.</p>
+  </div>
+
+   <ion-card class="hero-card">
+    <ion-card-content>
+      <h2>Ready to train?</h2>
+      <p>Choose a section below and keep your progress moving.</p>
+    </ion-card-content>
+  </ion-card>
+
+ 
+  <div class="buttons">
+   <ion-button expand="block" routerLink="/exercises" class="home-button">Exercises</ion-button>
+  <ion-button expand="block" routerLink="/plans" class="home-button">Plans</ion-button>
+  <ion-button expand="block" routerLink="/log-workout" class="home-button">Log Workout</ion-button>
+  <ion-button expand="block" routerLink="/history" class="home-button">History</ion-button>
+  <ion-button expand="block" routerLink="/settings" class="home-button">Settings</ion-button>
+  </div>
 </ion-content>

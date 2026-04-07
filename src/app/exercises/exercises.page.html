@@ -10,9 +10,11 @@
 <ion-content [fullscreen]="true">
   <ion-searchbar
     [(ngModel)]="searchTerm"
-    (ionInput)="onSearchChange()"
+    (ionChange)="onSearchChange()"
     placeholder="Search exercises">
   </ion-searchbar>
+
+  <p *ngIf="exercises.length === 0">No exercises found</p>
 
   <ion-card *ngFor="let exercise of exercises">
     <ion-card-header>
