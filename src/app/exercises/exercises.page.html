@@ -16,7 +16,7 @@
 
   <p *ngIf="exercises.length === 0">No exercises found</p>
 
-  <ion-card *ngFor="let exercise of exercises">
+  <ion-card *ngFor="let exercise of exercises" (click)="addExerciseToWorkout">
     <ion-card-header>
       <ion-card-title>{{ exercise.name }}</ion-card-title>
     </ion-card-header>

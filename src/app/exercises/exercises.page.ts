@@ -2,7 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
 import { IonContent, IonHeader, IonTitle, IonToolbar, IonButton, IonBackButton, IonCardHeader, IonCardTitle, IonCardContent, IonCard, IonSearchbar} from '@ionic/angular/standalone';
-import { RouterLink } from '@angular/router';
+import { RouterLink, Router } from '@angular/router';
 import { ExerciseService } from '../services/exercise.service';
 
 @Component({
@@ -17,7 +17,7 @@ export class ExercisesPage implements OnInit {
   searchTerm: string = '';
   exercises: any[] = [];
 
-  constructor(private exerciseService: ExerciseService) {}
+  constructor(private exerciseService: ExerciseService, private router: Router) {}
 
   ngOnInit(): void {
         this.exerciseService.getExercises().subscribe((data: any) =>{
@@ -32,9 +32,16 @@ export class ExercisesPage implements OnInit {
     });
     return;
   }
-
   this.exerciseService.searchExercises(this.searchTerm).subscribe((data: any) => {
     this.exercises = data;
+  });
+}
+
+addExerciseToWorkout(exercise: any): void {
+  this.router.navigate(['/log-workout'], {
+    state: {
+      selectedExercise: exercise
+    }
   });
 }
 
