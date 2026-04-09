@@ -9,5 +9,8 @@
 
 <ion-content [fullscreen]="true">
   <h1>Log Workouts</h1>
-  <ion-button (click)="goToExercises()">View Exercises</ion-button>
+  <p>Timer {{  formatTime(elapsedSeconds)  }}</p>
+  <ion-button *ngIf="!workoutStarted" (click)="startWorkout()">Start Workout</ion-button> 
+
+  <ion-button *ngIf="workoutStarted" (click)="goToExercises()">View Exercises</ion-button>
 </ion-content>
