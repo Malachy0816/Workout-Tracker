@@ -1,19 +1,52 @@
 <ion-header [translucent]="true">
   <ion-toolbar>
-    <ion-button slot="start">
+    <ion-buttons slot="start">
       <ion-back-button> defaultHref="/home"></ion-back-button>
-    </ion-button>
+    </ion-buttons>
     <ion-title>Log Workouts</ion-title>
   </ion-toolbar>
 </ion-header>
 
-<ion-content [fullscreen]="true">
+<ion-content [fullscreen]="true" class="ion-padding">
   <h1>Log Workouts</h1>
-  <p>Timer {{  formatTime(elapsedSeconds)  }}</p>
-  <ion-button *ngIf="!workoutStarted" (click)="startWorkout()">Start Workout</ion-button> 
+  <p>Timer {{ formatTime(elapsedSeconds) }}</p>
+  <p>Total Volume: {{ getTotalVolume() }} kg</p>
 
+  <ion-button *ngIf="!workoutStarted" (click)="startWorkout()">Start Workout</ion-button>
   <ion-button *ngIf="workoutStarted" (click)="goToExercises()">View Exercises</ion-button>
+
   <div *ngFor="let exercise of currentWorkout.exercises">
-  <p>{{ exercise.name }}</p>
-</div>
+    <h3>{{ exercise.name }}</h3>
+
+    <p *ngIf="exercise.previousSession && exercise.previousSession.length > 0">
+      Previous:
+      <span *ngFor="let prev of exercise.previousSession; let last = last">
+        {{ prev.reps }} x {{ prev.weight }}kg<span *ngIf="!last">, </span>
+      </span>
+    </p>
+
+    <div *ngFor="let set of exercise.sets; let i = index">
+      <p>Set {{ i + 1 }}</p>
+
+      <ion-input type="number" placeholder="Reps" [(ngModel)]="set.reps">
+      </ion-input>
+
+      <ion-input type="number" placeholder="Weight" [(ngModel)]="set.weight">
+      </ion-input>
+
+      <ion-button size="small" [color]="set.completed ? 'success' : 'medium'" (click)="toggleSetComplete(set)">
+        {{ set.completed ? 'Completed' : 'Mark Complete' }}
+      </ion-button>
+    </div>
+
+    <ion-button size="small" (click)="addSet(exercise)">
+      Add Set
+    </ion-button>
+
+    <ion-button *ngIf="workoutStarted" color="success" (click)="finishWorkout()">
+      Finish Workout
+    </ion-button>
+
+    <p>Exercise Volume: {{ getExerciseVolume(exercise) }} kg</p>
+  </div>
 </ion-content>

@@ -1,13 +1,33 @@
 <ion-header [translucent]="true">
   <ion-toolbar>
-    <ion-button slot="start">
-      <ion-back-button> defaultHref="/home"></ion-back-button>
-    </ion-button>
+    <ion-buttons slot="start">
+      <ion-back-button defaultHref="/home"></ion-back-button>
+    </ion-buttons>
     <ion-title>History</ion-title>
   </ion-toolbar>
 </ion-header>
 
-<ion-content [fullscreen]="true">
+<ion-content [fullscreen]="true" class="padding">
   <h1>History</h1>
-  <p>Here you can view your workout history and track your progress over time.</p>
+  <p *ngIf="workouts.length === 0">No workouts saved yet.</p>
+
+  <div *ngFor="let workout of workouts">
+    <h2>{{ formatDate(workout.startedAt) }}</h2>
+    <p>Duration: {{ formatDuration(workout.durationSeconds) }}</p>
+    <p>Total Volume: {{ workout.totalVolume }} kg</p>
+
+    <div *ngFor="let exercise of workout.exercises">
+      <h3>{{ exercise.name }}</h3>
+
+      <div *ngFor="let set of exercise.sets; let i = index">
+        <p>
+          Set {{ i + 1 }}:
+          {{ set.reps }} reps × {{ set.weight }} kg
+        </p>
+      </div>
+    </div>
+
+    <hr>
+  </div>
+
 </ion-content>

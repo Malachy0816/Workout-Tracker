@@ -1,7 +1,7 @@
 import { Component, OnInit, OnDestroy } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
-import { IonContent, IonHeader, IonTitle, IonToolbar, IonButton, IonBackButton, IonInput } from '@ionic/angular/standalone';
+import { IonContent, IonHeader, IonTitle, IonToolbar, IonButton, IonBackButton, IonInput, IonButtons } from '@ionic/angular/standalone';
 import { RouterLink, Router } from '@angular/router';
 import { WorkoutStorageService } from '../services/workout-storage.service';
 import { WorkoutExercise, WorkoutSession, WorkoutSet } from '../models/workout.models';
@@ -12,7 +12,7 @@ import { WorkoutExercise, WorkoutSession, WorkoutSet } from '../models/workout.m
   templateUrl: './log-workout.page.html',
   styleUrls: ['./log-workout.page.scss'],
   standalone: true,
-  imports: [IonContent, IonHeader, IonTitle, IonToolbar, CommonModule, FormsModule, IonButton, RouterLink, IonBackButton, IonInput]
+  imports: [IonContent, IonHeader, IonTitle, IonToolbar, CommonModule, FormsModule, IonButton, RouterLink, IonBackButton, IonInput, IonButtons]
 })
 
 export class LogWorkoutPage implements OnInit, OnDestroy {
@@ -28,11 +28,11 @@ export class LogWorkoutPage implements OnInit, OnDestroy {
     totalVolume: 0
   };
 
- constructor(private workoutStorage: WorkoutStorageService, private router: Router) {}
+  constructor(private workoutStorage: WorkoutStorageService, private router: Router) { }
 
   async ngOnInit(): Promise<void> {
     await this.workoutStorage.init();
-}
+  }
 
   ngOnDestroy(): void {
     if (this.timerInterval) {
@@ -41,20 +41,22 @@ export class LogWorkoutPage implements OnInit, OnDestroy {
   }
 
   async ionViewWillEnter(): Promise<void> {
-  const selectedExercise = history.state?.selectedExercise;
+    const selectedExercise = history.state?.selectedExercise;
 
-  console.log('selectedExercise:', selectedExercise);
+    console.log('selectedExercise:', selectedExercise);
 
-  if (selectedExercise) {
-    await this.addExerciseFromApi(selectedExercise);
+    if (selectedExercise) {
+      await this.addExerciseFromApi(selectedExercise);
 
-    history.replaceState({}, '');
+      history.replaceState({}, '');
+    }
   }
-}
 
   goToExercises(): void {
-  this.router.navigate(['/exercises']);
-}
+    this.router.navigate(['/exercises'], {
+      state: { fromWorkout: true }
+    });
+  }
 
   startWorkout(): void {
     this.workoutStarted = true;
@@ -111,25 +113,27 @@ export class LogWorkoutPage implements OnInit, OnDestroy {
     this.currentWorkout.exercises.push(newExercise);
   }
 
-async addExerciseFromApi(exercise: any): Promise<void> {
+  async addExerciseFromApi(exercise: any): Promise<void> {
 
-  const newExercise: WorkoutExercise = {
-    id: exercise.id,
-    name: exercise.name,
-    bodyPart: exercise.bodyPart,
-    equipment: exercise.equipment,
-    sets: [
-  {
-    reps: null,
-    weight: null,
-    completed: false
+    const previousSession = await this.workoutStorage.getPreviousSetsForExercise(exercise.name);
+
+    const newExercise: WorkoutExercise = {
+      id: exercise.id,
+      name: exercise.name,
+      bodyPart: exercise.bodyPart,
+      equipment: exercise.equipment,
+      sets: [
+        {
+          reps: null,
+          weight: null,
+          completed: false
+        }
+      ],
+      previousSession
+    };
+
+    this.currentWorkout.exercises.push(newExercise);
   }
-],
-previousSession: []
-  };
-
-  this.currentWorkout.exercises.push(newExercise);
-}
 
   addSet(exercise: WorkoutExercise): void {
     const newSet: WorkoutSet = {
