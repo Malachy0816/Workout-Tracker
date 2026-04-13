@@ -13,4 +13,7 @@
   <ion-button *ngIf="!workoutStarted" (click)="startWorkout()">Start Workout</ion-button> 
 
   <ion-button *ngIf="workoutStarted" (click)="goToExercises()">View Exercises</ion-button>
+  <div *ngFor="let exercise of currentWorkout.exercises">
+  <p>{{ exercise.name }}</p>
+</div>
 </ion-content>

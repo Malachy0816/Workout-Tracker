@@ -1,7 +1,7 @@
 import { Component, OnInit, OnDestroy } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
-import { IonContent, IonHeader, IonTitle, IonToolbar, IonButton, IonBackButton } from '@ionic/angular/standalone';
+import { IonContent, IonHeader, IonTitle, IonToolbar, IonButton, IonBackButton, IonInput } from '@ionic/angular/standalone';
 import { RouterLink, Router } from '@angular/router';
 import { WorkoutStorageService } from '../services/workout-storage.service';
 import { WorkoutExercise, WorkoutSession, WorkoutSet } from '../models/workout.models';
@@ -12,7 +12,7 @@ import { WorkoutExercise, WorkoutSession, WorkoutSet } from '../models/workout.m
   templateUrl: './log-workout.page.html',
   styleUrls: ['./log-workout.page.scss'],
   standalone: true,
-  imports: [IonContent, IonHeader, IonTitle, IonToolbar, CommonModule, FormsModule, IonButton, RouterLink, IonBackButton]
+  imports: [IonContent, IonHeader, IonTitle, IonToolbar, CommonModule, FormsModule, IonButton, RouterLink, IonBackButton, IonInput]
 })
 
 export class LogWorkoutPage implements OnInit, OnDestroy {
@@ -32,13 +32,6 @@ export class LogWorkoutPage implements OnInit, OnDestroy {
 
   async ngOnInit(): Promise<void> {
     await this.workoutStorage.init();
-
-    const nav = this.router.getCurrentNavigation();
-const selectedExercise = nav?.extras?.state?.['selectedExercise'];
-
-if (selectedExercise && this.workoutStarted) {
-  await this.addExerciseFromApi(selectedExercise);
-}
 }
 
   ngOnDestroy(): void {
@@ -46,6 +39,18 @@ if (selectedExercise && this.workoutStarted) {
       clearInterval(this.timerInterval);
     }
   }
+
+  async ionViewWillEnter(): Promise<void> {
+  const selectedExercise = history.state?.selectedExercise;
+
+  console.log('selectedExercise:', selectedExercise);
+
+  if (selectedExercise) {
+    await this.addExerciseFromApi(selectedExercise);
+
+    history.replaceState({}, '');
+  }
+}
 
   goToExercises(): void {
   this.router.navigate(['/exercises']);
@@ -106,16 +111,7 @@ if (selectedExercise && this.workoutStarted) {
     this.currentWorkout.exercises.push(newExercise);
   }
 
-  async addExerciseFromApi(exercise: any): Promise<void> {
-  const previousSession = await this.workoutStorage.getPreviousSetsForExercise(exercise.name);
-
-  const alreadyExists = this.currentWorkout.exercises.some(
-    currentExercise => currentExercise.name.toLowerCase() === exercise.name.toLowerCase()
-  );
-
-  if (alreadyExists) {
-    return;
-  }
+async addExerciseFromApi(exercise: any): Promise<void> {
 
   const newExercise: WorkoutExercise = {
     id: exercise.id,
@@ -123,13 +119,13 @@ if (selectedExercise && this.workoutStarted) {
     bodyPart: exercise.bodyPart,
     equipment: exercise.equipment,
     sets: [
-      {
-        reps: null,
-        weight: null,
-        completed: false
-      }
-    ],
-    previousSession
+  {
+    reps: null,
+    weight: null,
+    completed: false
+  }
+],
+previousSession: []
   };
 
   this.currentWorkout.exercises.push(newExercise);
