@@ -16,6 +16,7 @@ import { WorkoutStorageService } from '../services/workout-storage.service';
 export class HistoryPage implements OnInit {
 
   workouts: WorkoutSession[] = [];
+  expandedWorkoutId: string | number | null = null;
 
   constructor(private workoutStorage: WorkoutStorageService) { }
 
@@ -23,25 +24,44 @@ export class HistoryPage implements OnInit {
   }
 
   async ionViewWillEnter(): Promise<void> {
-  this.workouts = await this.workoutStorage.getWorkouts();
-}
+    this.workouts = await this.workoutStorage.getWorkouts();
+  }
 
-//this function formats the duration of the workout
-formatDuration(totalSeconds: number): string {
-  const hours = Math.floor(totalSeconds / 3600);
-  const minutes = Math.floor((totalSeconds % 3600) / 60);
-  const seconds = totalSeconds % 60;
+  //this function formats the duration of the workout
+  formatDuration(totalSeconds: number): string {
+    const hours = Math.floor(totalSeconds / 3600);
+    const minutes = Math.floor((totalSeconds % 3600) / 60);
+    const seconds = totalSeconds % 60;
 
-  return [
-    hours.toString().padStart(2, '0'),
-    minutes.toString().padStart(2, '0'),
-    seconds.toString().padStart(2, '0')
-  ].join(':');
-}
+    return [
+      hours.toString().padStart(2, '0'),
+      minutes.toString().padStart(2, '0'),
+      seconds.toString().padStart(2, '0')
+    ].join(':');
+  }
 
-//formats the date of the workout
-formatDate(dateString: string): string {
-  return new Date(dateString).toLocaleString();
-}
+  //formats the date of the workout
+  formatDate(dateString: string): string {
+    return new Date(dateString).toLocaleString();
+  }
+
+  async clearHistory(): Promise<void> {
+    const confirmed = confirm('Are you sure you want to clear all workout history?');
+
+    if (!confirmed) {
+      return;
+    }
+
+    await this.workoutStorage.clearWorkouts();
+    this.workouts = [];
+  }
+
+  toggleWorkoutDetails(workoutId: string | number): void {
+    if (this.expandedWorkoutId === workoutId) {
+      this.expandedWorkoutId = null;
+    } else {
+      this.expandedWorkoutId = workoutId;
+    }
+  }
 
 }

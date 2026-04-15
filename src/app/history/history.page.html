@@ -10,20 +10,28 @@
 <ion-content [fullscreen]="true" class="padding">
   <h1>History</h1>
   <p *ngIf="workouts.length === 0">No workouts saved yet.</p>
+  <ion-button *ngIf="workouts.length > 0" color="danger" (click)="clearHistory()">
+    Clear All Workouts
+  </ion-button>
 
   <div *ngFor="let workout of workouts">
-    <h2>{{ formatDate(workout.startedAt) }}</h2>
-    <p>Duration: {{ formatDuration(workout.durationSeconds) }}</p>
-    <p>Total Volume: {{ workout.totalVolume }} kg</p>
+    <div (click)="toggleWorkoutDetails(workout.id)">
+      <h2>{{ formatDate(workout.startedAt) }}</h2>
+      <p>Duration: {{ formatDuration(workout.durationSeconds) }}</p>
+      <p>Total Volume: {{ workout.totalVolume }} kg</p>
+      <p>{{ expandedWorkoutId === workout.id ? 'Hide Details' : 'Show Details' }}</p>
+    </div>
 
-    <div *ngFor="let exercise of workout.exercises">
-      <h3>{{ exercise.name }}</h3>
+    <div *ngIf="expandedWorkoutId === workout.id">
+      <div *ngFor="let exercise of workout.exercises">
+        <h3>{{ exercise.name }}</h3>
 
-      <div *ngFor="let set of exercise.sets; let i = index">
-        <p>
-          Set {{ i + 1 }}:
-          {{ set.reps }} reps × {{ set.weight }} kg
-        </p>
+        <div *ngFor="let set of exercise.sets; let i = index">
+          <p>
+            Set {{ i + 1 }}:
+            {{ set.reps }} reps × {{ set.weight }} kg
+          </p>
+        </div>
       </div>
     </div>
 

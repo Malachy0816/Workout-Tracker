@@ -50,4 +50,9 @@ export class WorkoutStorageService {
 
     return [];
   }
+
+  async clearWorkouts(): Promise<void> {
+    await this.init();
+    await this.storage.remove(this.WORKOUTS_KEY);
+  }
 }
