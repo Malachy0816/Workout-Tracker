@@ -1,0 +1,28 @@
+ion-card {
+  margin-bottom: 16px;
+  border-radius: 16px;
+}
+
+ion-card-header {
+  cursor: pointer;
+}
+
+ion-card-title {
+  font-size: 1.1rem;
+  font-weight: 600;
+}
+
+ion-card-content p {
+  margin: 6px 0;
+}
+
+.exercise-block {
+  margin-top: 12px;
+  padding-top: 8px;
+  border-top: 1px solid #ddd;
+}
+
+.set-line {
+  margin-left: 12px;
+  font-size: 0.95rem;
+}

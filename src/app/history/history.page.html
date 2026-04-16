@@ -9,33 +9,35 @@
 
 <ion-content [fullscreen]="true" class="padding">
   <h1>History</h1>
+  <p *ngIf="workouts.length > 0">Tap a workout to view details</p>
   <p *ngIf="workouts.length === 0">No workouts saved yet.</p>
   <ion-button *ngIf="workouts.length > 0" color="danger" (click)="clearHistory()">
     Clear All Workouts
   </ion-button>
 
-  <div *ngFor="let workout of workouts">
-    <div (click)="toggleWorkoutDetails(workout.id)">
-      <h2>{{ formatDate(workout.startedAt) }}</h2>
+  <ion-card *ngFor="let workout of workouts">
+    <ion-card-header>
+      <ion-card-title>{{ formatDate(workout.startedAt) }}</ion-card-title>
+    </ion-card-header>
+    <ion-card-content>
       <p>Duration: {{ formatDuration(workout.durationSeconds) }}</p>
       <p>Total Volume: {{ workout.totalVolume }} kg</p>
-      <p>{{ expandedWorkoutId === workout.id ? 'Hide Details' : 'Show Details' }}</p>
-    </div>
+      <ion-button fill="clear" size="small" (click)="toggleWorkoutDetails(workout.id)">
+        {{ expandedWorkoutId === workout.id ? '▲ Hide Details' : '▼ Show Details' }}
+      </ion-button>
 
-    <div *ngIf="expandedWorkoutId === workout.id">
-      <div *ngFor="let exercise of workout.exercises">
-        <h3>{{ exercise.name }}</h3>
+      <div *ngIf="expandedWorkoutId === workout.id">
+        <div *ngFor="let exercise of workout.exercises" class="exercise-block">
+          <h3>{{ exercise.name }}</h3>
 
-        <div *ngFor="let set of exercise.sets; let i = index">
-          <p>
-            Set {{ i + 1 }}:
-            {{ set.reps }} reps × {{ set.weight }} kg
-          </p>
+          <div *ngFor="let set of exercise.sets; let i = index" class="set-line">
+            <p>
+              Set {{ i + 1 }}:
+              {{ set.reps }} reps × {{ set.weight }} kg
+            </p>
+          </div>
         </div>
       </div>
-    </div>
+    </ion-card-content>
 
-    <hr>
-  </div>
-
-</ion-content>
+  </ion-card>
