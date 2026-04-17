@@ -1,31 +1,31 @@
 <ion-header [translucent]="true">
   <ion-toolbar>
     <ion-buttons slot="start">
-      <ion-back-button> defaultHref="/home"></ion-back-button>
+      <ion-back-button defaultHref="/home"></ion-back-button>
     </ion-buttons>
     <ion-title>Log Workouts</ion-title>
   </ion-toolbar>
 </ion-header>
 
-<ion-content [fullscreen]="true" class="ion-padding">
+<ion-content [fullscreen]="true" class="ion-padding log-workout-content">
   <h1>Log Workouts</h1>
-  <p>Timer {{ formatTime(elapsedSeconds) }}</p>
-  <p>Total Volume: {{ getTotalVolume() }} kg</p>
+  <p class="summary-text">Timer {{ formatTime(elapsedSeconds) }}</p>
+  <p class="summary-text">Total Volume: {{ getTotalVolume() }} kg</p>
 
   <ion-button *ngIf="!workoutStarted" (click)="startWorkout()">Start Workout</ion-button>
   <ion-button *ngIf="workoutStarted" (click)="goToExercises()">View Exercises</ion-button>
 
-  <div *ngFor="let exercise of currentWorkout.exercises">
+  <div *ngFor="let exercise of currentWorkout.exercises" class="exercise-card">
     <h3>{{ exercise.name }}</h3>
 
-    <p *ngIf="exercise.previousSession && exercise.previousSession.length > 0">
+    <p *ngIf="exercise.previousSession && exercise.previousSession.length > 0" class="previous-session">
       Previous:
       <span *ngFor="let prev of exercise.previousSession; let last = last">
         {{ prev.reps }} x {{ prev.weight }}kg<span *ngIf="!last">, </span>
       </span>
     </p>
 
-    <div *ngFor="let set of exercise.sets; let i = index">
+    <div *ngFor="let set of exercise.sets; let i = index" class="set-block">
       <p>Set {{ i + 1 }}</p>
 
       <ion-input type="number" placeholder="Reps" [(ngModel)]="set.reps">
@@ -43,7 +43,7 @@
       Add Set
     </ion-button>
 
-    <p>Exercise Volume: {{ getExerciseVolume(exercise) }} kg</p>
+    <p class="volume-text">Exercise Volume: {{ getExerciseVolume(exercise) }} kg</p>
   </div>
     <ion-button *ngIf="workoutStarted && currentWorkout.exercises.length > 0" color="success" (click)="finishWorkout()">
       Finish Workout

@@ -1,0 +1,99 @@
+ion-content.log-workout-content {
+  --background: black;
+  color: white;
+}
+
+ion-toolbar {
+  --background: black;
+  --color: orange;
+}
+
+ion-title {
+  color: orange;
+  font-weight: 700;
+}
+
+h1 {
+  color: orange;
+  font-size: 2rem;
+  font-weight: 700;
+  margin-bottom: 8px;
+}
+
+h3 {
+  color: orange;
+  font-size: 1.1rem;
+  font-weight: 700;
+  margin-bottom: 8px;
+}
+
+p {
+  color: white;
+}
+
+ion-button {
+  --background: darkorange;
+  --background-hover: darkorange;
+  --color: white;
+  --border-radius: 14px;
+  font-weight: 600;
+  margin-bottom: 12px;
+}
+
+ion-button[size="small"] {
+  margin-top: 8px;
+  margin-right: 8px;
+}
+
+ion-button[color="success"] {
+  --background: darkorange;
+  --background-hover: darkorange;
+  --color: white;
+}
+
+ion-button[color="medium"] {
+  --background: rgb(70, 70, 70);
+  --color: white;
+}
+
+.exercise-card {
+  background: rgb(33, 33, 33);
+  color: white;
+  border-radius: 18px;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.35);
+  border-left: 4px solid orange;
+  padding: 16px;
+  margin: 16px 0;
+}
+
+.set-block {
+  background: rgba(255, 255, 255, 0.05);
+  border-radius: 12px;
+  padding: 12px;
+  margin-bottom: 12px;
+}
+
+.previous-session {
+  color: white;
+  opacity: 0.85;
+  margin-bottom: 12px;
+}
+
+.volume-text {
+  margin-top: 8px;
+  font-weight: 600;
+}
+
+.summary-text {
+  margin-bottom: 8px;
+}
+
+ion-input {
+  --background: rgb(48, 48, 48);
+  --color: white;
+  --placeholder-color: rgba(255, 255, 255, 0.6);
+  --padding-start: 12px;
+  --padding-end: 12px;
+  border-radius: 12px;
+  margin-bottom: 10px;
+}

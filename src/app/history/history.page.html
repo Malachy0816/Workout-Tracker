@@ -7,9 +7,9 @@
   </ion-toolbar>
 </ion-header>
 
-<ion-content [fullscreen]="true" class="padding">
+<ion-content [fullscreen]="true" class="ion-padding history-content">
   <h1>History</h1>
-  <p *ngIf="workouts.length > 0">Tap a workout to view details</p>
+  <p *ngIf="workouts.length > 0" class="history-subtext">Tap a workout to view details</p>
   <p *ngIf="workouts.length === 0">No workouts saved yet.</p>
   <ion-button *ngIf="workouts.length > 0" color="danger" (click)="clearHistory()">
     Clear All Workouts

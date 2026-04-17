@@ -1,15 +1,42 @@
-ion-card {
-  margin-bottom: 16px;
-  border-radius: 16px;
+ion-content.history-content {
+  --background: black;
+  color: white;
 }
 
-ion-card-header {
-  cursor: pointer;
+ion-toolbar {
+  --background: black;
+  --color: orange;
+}
+
+ion-title {
+  color: orange;
+  font-weight: 700;
+}
+
+h1 {
+  color: orange;
+  font-size: 2rem;
+  font-weight: 700;
+  margin-bottom: 8px;
+}
+
+p {
+  color: white;
+}
+
+ion-card {
+  margin: 16px 0;
+  background: rgb(33, 33, 33);
+  color: white;
+  border-radius: 18px;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.35);
+  border-left: 4px solid orange;
 }
 
 ion-card-title {
+  color: orange;
   font-size: 1.1rem;
-  font-weight: 600;
+  font-weight: 700;
 }
 
 ion-card-content p {
@@ -17,12 +44,38 @@ ion-card-content p {
 }
 
 .exercise-block {
-  margin-top: 12px;
-  padding-top: 8px;
-  border-top: 1px solid #ddd;
+  margin-top: 14px;
+  padding-top: 10px;
+  border-top: 1px solid rgba(255, 255, 255, 0.12);
+}
+
+.exercise-block h3 {
+  color: orange;
+  font-size: 1rem;
+  font-weight: 600;
+  margin-bottom: 8px;
 }
 
 .set-line {
   margin-left: 12px;
+}
+
+.set-line p {
   font-size: 0.95rem;
+  color: white;
+}
+
+ion-button {
+  --border-radius: 14px;
+  font-weight: 600;
+}
+
+ion-button[fill="clear"] {
+  --color: orange;
+}
+
+.history-subtext {
+  color: white;
+  opacity: 0.8;
+  margin-bottom: 16px;
 }
