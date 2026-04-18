@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
-import { IonContent, IonHeader, IonTitle, IonToolbar, IonButton, IonBackButton, IonCardHeader, IonCardTitle, IonCardContent, IonCard, IonSearchbar } from '@ionic/angular/standalone';
+import { IonContent, IonHeader, IonTitle, IonToolbar, IonButton, IonBackButton, IonCardHeader, IonCardTitle, IonCardContent, IonCard, IonSearchbar, IonButtons } from '@ionic/angular/standalone';
 import { RouterLink, Router } from '@angular/router';
 import { ExerciseService } from '../services/exercise.service';
 
@@ -10,7 +10,7 @@ import { ExerciseService } from '../services/exercise.service';
   templateUrl: './exercises.page.html',
   styleUrls: ['./exercises.page.scss'],
   standalone: true,
-  imports: [IonContent, IonHeader, IonTitle, IonToolbar, CommonModule, FormsModule, IonButton, RouterLink, IonBackButton, IonCardHeader, IonCardTitle, IonCardContent, IonCard, IonSearchbar]
+  imports: [IonContent, IonHeader, IonTitle, IonToolbar, CommonModule, FormsModule, IonButton, RouterLink, IonBackButton, IonCardHeader, IonCardTitle, IonCardContent, IonCard, IonSearchbar, IonButtons]
 })
 export class ExercisesPage implements OnInit {
 

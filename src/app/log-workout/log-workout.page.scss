@@ -20,13 +20,6 @@ h1 {
   margin-bottom: 8px;
 }
 
-h3 {
-  color: orange;
-  font-size: 1.1rem;
-  font-weight: 700;
-  margin-bottom: 8px;
-}
-
 p {
   color: white;
 }
@@ -54,16 +47,6 @@ ion-button[color="success"] {
 ion-button[color="medium"] {
   --background: rgb(70, 70, 70);
   --color: white;
-}
-
-.exercise-card {
-  background: rgb(33, 33, 33);
-  color: white;
-  border-radius: 18px;
-  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.35);
-  border-left: 4px solid orange;
-  padding: 16px;
-  margin: 16px 0;
 }
 
 .set-block {
@@ -96,4 +79,21 @@ ion-input {
   --padding-end: 12px;
   border-radius: 12px;
   margin-bottom: 10px;
+}
+
+ion-card {
+  background: rgb(33, 33, 33);
+  border-radius: 18px;
+  border-left: 4px solid orange;
+}
+
+ion-card-header,
+ion-card-content {
+  color: white;
+}
+
+ion-card-title {
+  color: orange;
+  font-size: 1.1rem;
+  font-weight: 700;
 }

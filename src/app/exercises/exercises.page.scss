@@ -1,0 +1,55 @@
+ion-content.exercises-content {
+  --background: black;
+  color: white;
+}
+
+ion-toolbar {
+  --background: black;
+  --color: orange;
+}
+
+ion-title {
+  color: orange;
+  font-weight: 700;
+}
+
+ion-searchbar {
+  --background: rgb(33, 33, 33);
+  --color: white;
+  --placeholder-color: rgba(255, 255, 255, 0.6);
+  --border-radius: 14px;
+  margin-bottom: 16px;
+}
+
+p {
+  color: white;
+}
+
+ion-card {
+  margin-bottom: 16px;
+  background: rgb(33, 33, 33);
+  color: white;
+  border-radius: 18px;
+  border-left: 4px solid orange;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.35);
+  cursor: pointer;
+  transition: transform 0.15s ease;
+}
+
+ion-card:active {
+  transform: scale(0.98);
+}
+
+ion-card-title {
+  color: orange;
+  font-weight: 700;
+  font-size: 1.1rem;
+}
+
+ion-card-content p {
+  margin: 6px 0;
+}
+
+ion-card-content strong {
+  color: orange;
+}

@@ -15,37 +15,40 @@
   <ion-button *ngIf="!workoutStarted" (click)="startWorkout()">Start Workout</ion-button>
   <ion-button *ngIf="workoutStarted" (click)="goToExercises()">View Exercises</ion-button>
 
-  <div *ngFor="let exercise of currentWorkout.exercises" class="exercise-card">
-    <h3>{{ exercise.name }}</h3>
+  <ion-card *ngFor="let exercise of currentWorkout.exercises" class="exercise-card">
+    <ion-card-header>
+      <ion-card-title>{{ exercise.name }}</ion-card-title>
+    </ion-card-header>
+    <ion-card-content>
+      <p *ngIf="exercise.previousSession && exercise.previousSession.length > 0" class="previous-session">
+        Previous:
+        <span *ngFor="let prev of exercise.previousSession; let last = last">
+          {{ prev.reps }} x {{ prev.weight }}kg<span *ngIf="!last">, </span>
+        </span>
+      </p>
 
-    <p *ngIf="exercise.previousSession && exercise.previousSession.length > 0" class="previous-session">
-      Previous:
-      <span *ngFor="let prev of exercise.previousSession; let last = last">
-        {{ prev.reps }} x {{ prev.weight }}kg<span *ngIf="!last">, </span>
-      </span>
-    </p>
+      <div *ngFor="let set of exercise.sets; let i = index" class="set-block">
+        <p>Set {{ i + 1 }}</p>
 
-    <div *ngFor="let set of exercise.sets; let i = index" class="set-block">
-      <p>Set {{ i + 1 }}</p>
+        <ion-input type="number" placeholder="Reps" [(ngModel)]="set.reps">
+        </ion-input>
 
-      <ion-input type="number" placeholder="Reps" [(ngModel)]="set.reps">
-      </ion-input>
+        <ion-input type="number" placeholder="Weight" [(ngModel)]="set.weight">
+        </ion-input>
 
-      <ion-input type="number" placeholder="Weight" [(ngModel)]="set.weight">
-      </ion-input>
+        <ion-button size="small" [color]="set.completed ? 'success' : 'medium'" (click)="toggleSetComplete(set)">
+          {{ set.completed ? 'Completed' : 'Mark Complete' }}
+        </ion-button>
+      </div>
 
-      <ion-button size="small" [color]="set.completed ? 'success' : 'medium'" (click)="toggleSetComplete(set)">
-        {{ set.completed ? 'Completed' : 'Mark Complete' }}
+      <ion-button size="small" (click)="addSet(exercise)">
+        Add Set
       </ion-button>
-    </div>
 
-    <ion-button size="small" (click)="addSet(exercise)">
-      Add Set
-    </ion-button>
-
-    <p class="volume-text">Exercise Volume: {{ getExerciseVolume(exercise) }} kg</p>
-  </div>
-    <ion-button *ngIf="workoutStarted && currentWorkout.exercises.length > 0" color="success" (click)="finishWorkout()">
-      Finish Workout
-    </ion-button>
+      <p class="volume-text">Exercise Volume: {{ getExerciseVolume(exercise) }} kg</p>
+    </ion-card-content>
+  </ion-card>
+  <ion-button *ngIf="workoutStarted && currentWorkout.exercises.length > 0" color="success" (click)="finishWorkout()">
+    Finish Workout
+  </ion-button>
 </ion-content>

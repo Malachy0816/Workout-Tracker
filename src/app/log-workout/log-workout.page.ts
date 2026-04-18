@@ -1,7 +1,7 @@
 import { Component, OnInit, OnDestroy } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
-import { IonContent, IonHeader, IonTitle, IonToolbar, IonButton, IonBackButton, IonInput, IonButtons } from '@ionic/angular/standalone';
+import { IonContent, IonHeader, IonTitle, IonToolbar, IonButton, IonBackButton, IonInput, IonButtons, IonCard, IonCardHeader, IonCardTitle, IonCardContent } from '@ionic/angular/standalone';
 import { RouterLink, Router } from '@angular/router';
 import { WorkoutStorageService } from '../services/workout-storage.service';
 import { WorkoutExercise, WorkoutSession, WorkoutSet } from '../models/workout.models';
@@ -12,7 +12,7 @@ import { WorkoutExercise, WorkoutSession, WorkoutSet } from '../models/workout.m
   templateUrl: './log-workout.page.html',
   styleUrls: ['./log-workout.page.scss'],
   standalone: true,
-  imports: [IonContent, IonHeader, IonTitle, IonToolbar, CommonModule, FormsModule, IonButton, RouterLink, IonBackButton, IonInput, IonButtons]
+  imports: [IonContent, IonHeader, IonTitle, IonToolbar, CommonModule, FormsModule, IonButton, RouterLink, IonBackButton, IonInput, IonButtons, IonCard, IonCardHeader, IonCardTitle, IonCardContent]
 })
 
 export class LogWorkoutPage implements OnInit, OnDestroy {
