@@ -5,6 +5,7 @@ import { IonContent, IonHeader, IonTitle, IonToolbar, IonButton, IonBackButton, 
 import { RouterLink } from '@angular/router';
 import { WorkoutSession } from '../models/workout.models';
 import { WorkoutStorageService } from '../services/workout-storage.service';
+import { AlertController, ToastController } from '@ionic/angular';
 
 @Component({
   selector: 'app-history',
@@ -18,7 +19,7 @@ export class HistoryPage implements OnInit {
   workouts: WorkoutSession[] = [];
   expandedWorkoutId: string | number | null = null;
 
-  constructor(private workoutStorage: WorkoutStorageService) { }
+  constructor(private workoutStorage: WorkoutStorageService, private alertController: AlertController, private toastController: ToastController) { }
 
   ngOnInit() {
   }
@@ -27,7 +28,7 @@ export class HistoryPage implements OnInit {
     this.workouts = await this.workoutStorage.getWorkouts();
   }
 
-  //this function formats the duration of the workout
+  
   formatDuration(totalSeconds: number): string {
     const hours = Math.floor(totalSeconds / 3600);
     const minutes = Math.floor((totalSeconds % 3600) / 60);
@@ -40,20 +41,43 @@ export class HistoryPage implements OnInit {
     ].join(':');
   }
 
-  //formats the date of the workout
+
   formatDate(dateString: string): string {
     return new Date(dateString).toLocaleString();
   }
 
   async clearHistory(): Promise<void> {
-    const confirmed = confirm('Are you sure you want to clear all workout history?');
+   const alert = await this.alertController.create({
+    header: 'Clear History',
+    message: 'Are you sure you want to delete all workout history?',
+    buttons: [
+      {
+        text: 'Cancel',
+        role: 'cancel'
+      },
+      {
+        text: 'Delete',
+        role: 'confirm'
+      }
+    ]
+  });
 
-    if (!confirmed) {
-      return;
-    }
+  await alert.present();
 
+  const result = await alert.onDidDismiss();
+
+  if (result.role === 'confirm') {
     await this.workoutStorage.clearWorkouts();
     this.workouts = [];
+
+    const toast = await this.toastController.create({
+      message: 'Workout history cleared',
+      duration: 2000,
+      position: 'bottom'
+    });
+
+    await toast.present();
+  }
   }
 
   toggleWorkoutDetails(workoutId: string | number): void {

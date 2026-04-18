@@ -1,12 +1,39 @@
 <ion-header [translucent]="true">
   <ion-toolbar>
-    <ion-button slot="start">
-      <ion-back-button> defaultHref="/home"></ion-back-button>
-    </ion-button>
+    <ion-buttons slot="start">
+      <ion-back-button defaultHref="/home"></ion-back-button>
+    </ion-buttons>
     <ion-title>Settings</ion-title>
   </ion-toolbar>
 </ion-header>
 
-<ion-content [fullscreen]="true">
- <h1>Settings</h1>
+<ion-content [fullscreen]="true" class="ion-padding">
+  <h1>Settings</h1>
+
+  <ion-button color="danger" (click)="clearWorkoutHistory()">
+    Clear Workout History
+  </ion-button>
+
+  <h2>About</h2>
+  <ion-card>
+    <ion-card-header>
+      <ion-card-title>Workout Tracker</ion-card-title>
+    </ion-card-header>
+
+    <ion-card-content>
+      <p><strong>Version:</strong> 1.0</p>
+      <p><strong>Developer:</strong> Malachy Lindner</p>
+      <p>A workout tracking app which allows you to log workouts, save workout history, and view exercise details. Built
+        with Ionic and Angular.</p>
+    </ion-card-content>
+  </ion-card>
+
+  <h2>Preferences</h2>
+  <ion-item>
+    <ion-label>Confirm before finishing workout</ion-label>
+    <ion-toggle [(ngModel)]="confirmFinish" (ionChange)="onConfirmFinishChange()"></ion-toggle>
+  </ion-item>
+
+
+
 </ion-content>

@@ -19,6 +19,7 @@
   <ion-card *ngFor="let exercise of exercises" (click)="addExerciseToWorkout(exercise)">
     <ion-card-header>
       <ion-card-title>{{ exercise.name }}</ion-card-title>
+      <p *ngIf="fromWorkout" class="add-hint">Add to Workout</p>
     </ion-card-header>
 
     <ion-card-content>

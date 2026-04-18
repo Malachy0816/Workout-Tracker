@@ -5,6 +5,8 @@ import { IonContent, IonHeader, IonTitle, IonToolbar, IonButton, IonBackButton, 
 import { RouterLink, Router } from '@angular/router';
 import { WorkoutStorageService } from '../services/workout-storage.service';
 import { WorkoutExercise, WorkoutSession, WorkoutSet } from '../models/workout.models';
+import { AlertController } from '@ionic/angular';
+import { ToastController } from '@ionic/angular';
 
 
 @Component({
@@ -28,7 +30,7 @@ export class LogWorkoutPage implements OnInit, OnDestroy {
     totalVolume: 0
   };
 
-  constructor(private workoutStorage: WorkoutStorageService, private router: Router) { }
+  constructor(private workoutStorage: WorkoutStorageService, private router: Router, private alertController: AlertController, private toastController: ToastController) { }
 
   async ngOnInit(): Promise<void> {
     await this.workoutStorage.init();
@@ -167,6 +169,14 @@ export class LogWorkoutPage implements OnInit, OnDestroy {
     if (!this.workoutStarted) {
       return;
     }
+    const confirmFinish = await this.workoutStorage.getConfirmFinish();
+
+    if (confirmFinish) {
+      const confirmed = await this.confirmFinishWorkout();
+      if (!confirmed) {
+        return;
+      }
+    }
 
     if (this.timerInterval) {
       clearInterval(this.timerInterval);
@@ -189,8 +199,40 @@ export class LogWorkoutPage implements OnInit, OnDestroy {
       totalVolume: 0
     };
 
-    alert('Workout saved');
+    await this.showToast('Workout saved');
   }
+
+  async confirmFinishWorkout(): Promise<boolean> {
+    const alert = await this.alertController.create({
+      header: 'Finish Workout',
+      message: 'Are you sure you want to finish this workout?',
+      buttons: [
+        {
+          text: 'Cancel',
+          role: 'cancel'
+        },
+        {
+          text: 'Finish',
+          role: 'confirm'
+        }
+      ]
+    });
+
+    await alert.present();
+
+    const result = await alert.onDidDismiss();
+    return result.role === 'confirm';
+  }
+  async showToast(message: string): Promise<void> {
+    const toast = await this.toastController.create({
+      message,
+      duration: 2000,
+      position: 'bottom'
+    });
+
+    await toast.present();
+  }
+
 }
 
 

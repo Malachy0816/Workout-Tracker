@@ -8,12 +8,17 @@
 </ion-header>
 
 <ion-content [fullscreen]="true" class="ion-padding log-workout-content">
+  <ion-card class="workout-summary">
+    <ion-card-content>
   <h1>Log Workouts</h1>
   <p class="summary-text">Timer {{ formatTime(elapsedSeconds) }}</p>
   <p class="summary-text">Total Volume: {{ getTotalVolume() }} kg</p>
 
   <ion-button *ngIf="!workoutStarted" (click)="startWorkout()">Start Workout</ion-button>
   <ion-button *ngIf="workoutStarted" (click)="goToExercises()">View Exercises</ion-button>
+  </ion-card-content>
+  </ion-card>
+  
 
   <ion-card *ngFor="let exercise of currentWorkout.exercises" class="exercise-card">
     <ion-card-header>
