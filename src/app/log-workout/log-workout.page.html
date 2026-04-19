@@ -50,7 +50,7 @@
         Add Set
       </ion-button>
 
-      <p class="volume-text">Exercise Volume: {{ getExerciseVolume(exercise) }} kg</p>
+      <p *ngIf="showExerciseVolume" class="volume-text">Exercise Volume: {{ getExerciseVolume(exercise) }} kg</p>
     </ion-card-content>
   </ion-card>
   <ion-button *ngIf="workoutStarted && currentWorkout.exercises.length > 0" color="success" (click)="finishWorkout()">

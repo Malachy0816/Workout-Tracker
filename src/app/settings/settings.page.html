@@ -7,12 +7,29 @@
   </ion-toolbar>
 </ion-header>
 
-<ion-content [fullscreen]="true" class="ion-padding">
+<ion-content [fullscreen]="true" class="ion-padding settings-content">
   <h1>Settings</h1>
+
 
   <ion-button color="danger" (click)="clearWorkoutHistory()">
     Clear Workout History
   </ion-button>
+
+
+  <h2>Preferences</h2>
+  <ion-card>
+    <ion-card-content>
+      <ion-item>
+        <ion-label>Confirm before finishing workout</ion-label>
+        <ion-toggle [(ngModel)]="confirmFinish" (ionChange)="onConfirmFinishChange()"></ion-toggle>
+      </ion-item>
+
+      <ion-item>
+        <ion-label>Show exercise volume</ion-label>
+        <ion-toggle [(ngModel)]="showExerciseVolume" (ionChange)="onShowExerciseVolumeChange()"></ion-toggle>
+      </ion-item>
+    </ion-card-content>
+  </ion-card>
 
   <h2>About</h2>
   <ion-card>
@@ -27,12 +44,6 @@
         with Ionic and Angular.</p>
     </ion-card-content>
   </ion-card>
-
-  <h2>Preferences</h2>
-  <ion-item>
-    <ion-label>Confirm before finishing workout</ion-label>
-    <ion-toggle [(ngModel)]="confirmFinish" (ionChange)="onConfirmFinishChange()"></ion-toggle>
-  </ion-item>
 
 
 

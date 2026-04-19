@@ -21,6 +21,7 @@ export class LogWorkoutPage implements OnInit, OnDestroy {
   workoutStarted = false;
   elapsedSeconds = 0;
   timerInterval: any = null;
+  showExerciseVolume = true;
 
   currentWorkout: WorkoutSession = {
     id: '',
@@ -52,6 +53,8 @@ export class LogWorkoutPage implements OnInit, OnDestroy {
 
       history.replaceState({}, '');
     }
+
+    this.showExerciseVolume = await this.workoutStorage.getShowExerciseVolume();
   }
 
   goToExercises(): void {

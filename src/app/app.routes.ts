@@ -15,10 +15,6 @@ export const routes: Routes = [
     loadComponent: () => import('./exercises/exercises.page').then( m => m.ExercisesPage)
   },
   {
-    path: 'plans',
-    loadComponent: () => import('./plans/plans.page').then( m => m.PlansPage)
-  },
-  {
     path: 'log-workout',
     loadComponent: () => import('./log-workout/log-workout.page').then( m => m.LogWorkoutPage)
   },

@@ -9,6 +9,7 @@ export class WorkoutStorageService {
   private readonly WORKOUTS_KEY = 'workout_history';
   private storageReady = false;
   private readonly CONFIRM_FINISH_KEY = 'confirm_finish_workout';
+  private readonly SHOW_EXERCISE_VOLUME_KEY = 'show_exercise_volume';
 
   constructor(private storage: Storage) {}
 
@@ -65,6 +66,16 @@ export class WorkoutStorageService {
 async getConfirmFinish(): Promise<boolean> {
   await this.init();
   return (await this.storage.get(this.CONFIRM_FINISH_KEY)) ?? true;
+}
+
+async setShowExerciseVolume(value: boolean): Promise<void> {
+  await this.init();
+  await this.storage.set(this.SHOW_EXERCISE_VOLUME_KEY, value);
+}
+
+async getShowExerciseVolume(): Promise<boolean> {
+  await this.init();
+  return (await this.storage.get(this.SHOW_EXERCISE_VOLUME_KEY)) ?? true;
 }
 
 

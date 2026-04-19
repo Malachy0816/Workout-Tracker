@@ -1,0 +1,87 @@
+ion-content.settings-content {
+  --background: black;
+  color: white;
+}
+
+ion-toolbar {
+  --background: black;
+  --color: orange;
+}
+
+ion-title {
+  color: orange;
+  font-weight: 700;
+}
+
+h1 {
+  color: orange;
+  font-size: 2rem;
+  font-weight: 700;
+  margin-bottom: 8px;
+}
+
+h2 {
+  color: orange;
+  font-size: 1.1rem;
+  font-weight: 700;
+  margin-top: 20px;
+  margin-bottom: 10px;
+}
+
+p {
+  color: white;
+}
+
+ion-card {
+  margin: 16px 0;
+  background: rgb(33, 33, 33);
+  color: white;
+  border-radius: 18px;
+  border-left: 4px solid orange;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.35);
+}
+
+ion-card-title {
+  color: orange;
+  font-size: 1.1rem;
+  font-weight: 700;
+}
+
+ion-card-content p {
+  margin: 6px 0;
+}
+
+ion-item {
+  --background: rgb(33, 33, 33);
+  --color: white;
+  --border-color: rgba(255, 255, 255, 0.1);
+  --inner-border-width: 0 0 1px 0;
+  --padding-start: 12px;
+  --inner-padding-end: 12px;
+}
+
+ion-label {
+  color: white;
+}
+
+ion-toggle {
+  --track-background: rgb(70, 70, 70);
+  --track-background-checked: darkorange;
+  --handle-background: white;
+  --handle-background-checked: white;
+}
+
+ion-button {
+  --background: darkorange;
+  --background-hover: darkorange;
+  --color: white;
+  --border-radius: 14px;
+  font-weight: 600;
+  margin-top: 8px;
+}
+
+ion-button[color="danger"] {
+  --background: darkorange;
+  --background-hover: darkorange;
+  --color: white;
+}

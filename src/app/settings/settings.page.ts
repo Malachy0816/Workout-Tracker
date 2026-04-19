@@ -1,9 +1,9 @@
 import { Component, OnInit } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
-import { IonContent, IonHeader, IonTitle, IonToolbar, IonButton, IonBackButton, IonButtons, IonItem, IonLabel, IonSelectOption, IonCardHeader, IonCardTitle, IonCardContent, IonCard, IonToggle} from '@ionic/angular/standalone';
+import { IonContent, IonHeader, IonTitle, IonToolbar, IonButton, IonBackButton, IonButtons, IonItem, IonLabel, IonSelectOption, IonCardHeader, IonCardTitle, IonCardContent, IonCard, IonToggle } from '@ionic/angular/standalone';
 import { RouterLink } from '@angular/router';
-import { WorkoutStorageService } from '../services/workout-storage.service'; 
+import { WorkoutStorageService } from '../services/workout-storage.service';
 import { AlertController, ToastController } from '@ionic/angular';
 
 @Component({
@@ -15,15 +15,16 @@ import { AlertController, ToastController } from '@ionic/angular';
 })
 export class SettingsPage implements OnInit {
 
-  constructor(private workoutStorage: WorkoutStorageService, private alertController: AlertController, private toastController: ToastController) {}
+  constructor(private workoutStorage: WorkoutStorageService, private alertController: AlertController, private toastController: ToastController) { }
 
   confirmFinish = true;
+  showExerciseVolume = true;
 
 
   ngOnInit() {
   }
 
-  async clearWorkoutHistory(): Promise<void>{
+  async clearWorkoutHistory(): Promise<void> {
     const alert = await this.alertController.create({
       header: 'Clear History',
       message: 'Are you sure you want to delete all workout history?',
@@ -42,8 +43,8 @@ export class SettingsPage implements OnInit {
     await alert.present();
 
     const result = await alert.onDidDismiss();
-    
-    if(result.role === 'confirm') {
+
+    if (result.role === 'confirm') {
       await this.workoutStorage.clearWorkouts();
 
       const toast = await this.toastController.create({
@@ -57,11 +58,16 @@ export class SettingsPage implements OnInit {
   }
 
   async ionViewWillEnter(): Promise<void> {
-  this.confirmFinish = await this.workoutStorage.getConfirmFinish();
-}
+    this.confirmFinish = await this.workoutStorage.getConfirmFinish();
+    this.showExerciseVolume = await this.workoutStorage.getShowExerciseVolume();
+  }
 
-async onConfirmFinishChange(): Promise<void> {
-  await this.workoutStorage.setConfirmFinish(this.confirmFinish);
-}
+  async onConfirmFinishChange(): Promise<void> {
+    await this.workoutStorage.setConfirmFinish(this.confirmFinish);
+  }
+
+  async onShowExerciseVolumeChange(): Promise<void> {
+    await this.workoutStorage.setShowExerciseVolume(this.showExerciseVolume);
+  }
 
 }
