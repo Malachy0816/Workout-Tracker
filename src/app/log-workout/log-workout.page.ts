@@ -46,8 +46,6 @@ export class LogWorkoutPage implements OnInit, OnDestroy {
   async ionViewWillEnter(): Promise<void> {
     const selectedExercise = history.state?.selectedExercise;
 
-    console.log('selectedExercise:', selectedExercise);
-
     if (selectedExercise) {
       await this.addExerciseFromApi(selectedExercise);
 
